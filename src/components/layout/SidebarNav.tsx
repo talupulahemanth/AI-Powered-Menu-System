@@ -1,11 +1,12 @@
 import { cn } from "@/utils/cn";
 
-export type NavKey = "calls" | "orders" | "menu" | "analytics" | "tickets" | "settings";
+export type NavKey = "calls" | "calling" | "orders" | "menu" | "analytics" | "tickets" | "settings";
 
 const items: Array<{ key: NavKey; label: string; hint: string }> = [
-  { key: "calls", label: "Live Calls", hint: "Agents & voice" },
+  { key: "calls", label: "Live Calls", hint: "Agents & monitoring" },
+  { key: "calling", label: "AI Assistant Call", hint: "Text/Voice call test" },
   { key: "orders", label: "Orders", hint: "Kitchen timeline" },
-  { key: "menu", label: "Menu", hint: "Structured DB" },
+  { key: "menu", label: "Menu", hint: "Structured DB & AI sync" },
   { key: "analytics", label: "Analytics", hint: "KPIs & AI insights" },
   { key: "tickets", label: "Tickets", hint: "Escalations" },
   { key: "settings", label: "Settings", hint: "Integrations" },
