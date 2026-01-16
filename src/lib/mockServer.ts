@@ -38,6 +38,53 @@ export const mockBus = {
 };
 
 export const api = {
+  async getRooms() {
+    return [
+      { number: "101", primaryGuest: "Alex Morgan" },
+      { number: "102", primaryGuest: "Sophia Chen" },
+      { number: "203", primaryGuest: "Marcus Rodriguez" },
+      { number: "305", primaryGuest: "Fatima Al-Khaldi" },
+      { number: "401", primaryGuest: "Rajesh Patel" }
+    ];
+  },
+
+  async getMenuItems() {
+    return db.menu.map(it => ({
+      id: it.id,
+      name: it.name,
+      description: it.description,
+      price: it.price,
+      prepMins: it.prepMins,
+      dietary: it.dietary,
+      allergens: it.allergens
+    }));
+  },
+
+  async createOrder(order: any) {
+    const mappedOrder: Order = {
+      id: order.id || uid("ORD"),
+      createdAt: new Date().toISOString(),
+      roomNumber: order.roomNumber,
+      guestName: order.guestName,
+      language: "en",
+      status: "new",
+      etaMins: 35,
+      items: order.items.map((i: any) => ({
+        itemId: i.id, name: i.name, qty: i.quantity, modifiers: i.modifiers, price: i.price
+      })),
+      dietaryFlags: [],
+      allergenFlags: [],
+      subtotal: order.total,
+      serviceCharge: order.total * 0.1,
+      tax: order.total * 0.12,
+      total: order.total * 1.12,
+      posProvider: "oracle_micros"
+    };
+    db.orders = [mappedOrder, ...db.orders];
+    mockBus.emit();
+    return mappedOrder;
+  },
+
   async getSnapshot() {
     return structuredClone(db);
   },

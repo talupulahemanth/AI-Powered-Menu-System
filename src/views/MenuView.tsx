@@ -39,11 +39,43 @@ export function MenuView({
           <Button
             variant="secondary"
             onClick={() => {
-              setJson("[");
+              setJson("");
               setImportOpen(true);
             }}
           >
             Import JSON
+          </Button>
+          <label className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-indigo-700 to-purple-700 px-4 py-2.5 text-sm font-semibold text-white hover:opacity-90 transition cursor-pointer border border-indigo-500/30 shadow-lg">
+            <span className="text-lg">📄</span>
+            Upload File
+            <input
+              type="file"
+              accept=".json,.csv"
+              className="hidden"
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (file) {
+                  const text = await file.text();
+                  // Try to parse
+                  try {
+                    await api.importMenu(text);
+                  } catch (err) {
+                    alert("Failed to parse file. Use valid JSON.");
+                  }
+                }
+              }}
+            />
+          </label>
+          <Button
+            className="bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-400 hover:to-orange-400 text-slate-900"
+            onClick={async () => {
+              // AI menu optimization / enhancement (demo)
+              alert("Ultimate AI is analyzing menu items... \n• Checking dietary tag consistency\n• Updating descriptions to boost upsell\n• Generating allergy-safe alternatives");
+              await new Promise(r => setTimeout(r, 1500));
+              alert("AI optimization complete.");
+            }}
+          >
+            🧠 AI Sync
           </Button>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { SidebarNav, type NavKey } from "@/components/layout/SidebarNav";
 import { Shell } from "@/components/layout/Shell";
 import { TopHeader } from "@/components/layout/TopHeader";
 import { LiveCallsView } from "@/views/LiveCallsView";
+import { CallingView } from "@/views/CallingView";
 import { OrdersView } from "@/views/OrdersView";
 import { MenuView } from "@/views/MenuView";
 import { AnalyticsView } from "@/views/AnalyticsView";
@@ -71,8 +72,9 @@ function AuthedApp() {
   const header = useMemo(() => {
     const map: Record<NavKey, { title: string; sub: string }> = {
       calls: { title: "Live Calls", sub: "10+ virtual agents • multilingual • supervisor tools" },
+      calling: { title: "AI Assistant Calling", sub: "Text & voice AI ordering • order integration" },
       orders: { title: "Orders", sub: "Timeline • POS routing • dietary & allergen flags" },
-      menu: { title: "Menu Management", sub: "Authoritative allergen DB • import/export" },
+      menu: { title: "Menu Management", sub: "Structured DB • AI sync • file import" },
       analytics: { title: "Analytics", sub: "KPIs • language/dietary mix • AI insights" },
       tickets: { title: "Tickets", sub: "Escalations • risk handling • routing" },
       settings: { title: "Settings", sub: "POS/LLM/Telephony configuration hooks" },
@@ -91,6 +93,8 @@ function AuthedApp() {
     switch (nav) {
       case "calls":
         return <LiveCallsView onSelect={setSelection} />;
+      case "calling":
+        return <CallingView />;
       case "orders":
         return <OrdersView onSelect={setSelection} />;
       case "menu":
